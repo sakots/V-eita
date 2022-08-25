@@ -8,6 +8,8 @@
 
 フロントエンドをVueで、バックエンドをphpで。その間を[axios](https://github.com/axios/axios)でつなぐ。
 
+データベースはsqlite。phpでjson出力したらできそう。 -> [json-encode](https://www.php.net/manual/ja/function.json-encode.php)
+
 ## 履歴
 
 ### [2022/08/26]
