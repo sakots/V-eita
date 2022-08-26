@@ -1,10 +1,15 @@
-const TwoWayBinding = {
-  data() {
+Vue.createApp({
+  el: '#app',
+  data(){
     return {
-      message: 'Hello Vue!'
+      users: [],
     }
-  }
-}
+},
 
-Vue.createApp(TwoWayBinding).mount('#two-way-binding')
+  mounted(){
+    axios.get('veita.php')
+    .then(response => this.users = response.data)
+    .catch(error => console.log(error))
+  }
+}).mount('#app')
 
