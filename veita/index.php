@@ -2,6 +2,7 @@
 <?php
 //設定の読み込み
 require(__DIR__ . '/config.php');
+require(__DIR__ . '/theme_conf.php');
 ?>
 <html lang="ja">
 
@@ -39,27 +40,27 @@ require(__DIR__ . '/config.php');
               <a href="<?= PHP_SELF ?>?mode=search&amp;bubun=kanzen&amp;search={{ user.a_name }}">
                 {{ user.a_name }}</a>
             </span>
-            <svg v-if=" 'user.admins' " viewBox="0 0 640 512">
+            <svg v-if="user.admins" viewBox="0 0 640 512">
               <use href="icons/user-check.svg#admin_badge">
             </svg>
-            <span v-if="'user.modified' === 'user.created'">
+            <span v-if="user.modified === user.created">
               {{ user.modified }}
             </span>
             <span v-else>
               {{ user.created }} <?= $updatemark ?> {{ user.modified }}
             </span>
-            <span v-if=" 'user.mail' " class="mail">
+            <span v-if="user.mail" class="mail">
               <a href="mailto:{{ user.mail }}">[mail]</a>
             </span>
-            <span v-if=" 'user.a_url' " class="url">
+            <span v-if="user.a_url" class="url">
               <a href=" user.a_url " target="_blank" rel="nofollow noopener noreferrer">[URL]</a>
             </span>
             <? if (DISP_ID) : ?>
               <span class="id">ID：{{ user.id }}</span>
             <? endif; ?>
             <span class="sodane">
-              <a href="<?= PHP_SELF ?>?mode=sodane&amp;resto={{ user.tid }}"><?= $sodane ?>
-                <span v-if="'user.exid' != 0">
+              <a href="<?= PHP_SELF ?>?mode=sodane&amp;resto={{ user.tid }}"><?= SODANE ?>
+                <span v-if="user.exid != 0">
                   x{{ user.exid }}
                 </span>
                 <span v-else>
