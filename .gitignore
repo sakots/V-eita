@@ -1,1 +1,9 @@
 *.db
+
+*/BladeOne
+*/chickenpaint
+*/neo
+*/cache
+*/session
+*/src
+*/tmp
