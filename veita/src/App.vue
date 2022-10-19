@@ -1,15 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h3>掲示板に投稿する</h3>
+    <label for="nickname">お名前：</label>
+    <input id="nickname" type="text">
+    <label for="mail">mail：</label>
+    <input id="mail" type="text">
+    <br>
+    <label for="comment">コメント</label>
+    <textarea name="" id="comment" cols="48" rows="8"></textarea>
+    <br>
+    <button @click="createComment"> 送信 </button>
+    <h2>掲示板</h2>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      nickname: "",
+      mailaddress: "",
+      comment: ""
+    }
   }
 }
 </script>
