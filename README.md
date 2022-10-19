@@ -10,12 +10,14 @@
 
 データベースはsqlite。phpでjson出力したらできそう。 -> [json-encode](https://www.php.net/manual/ja/function.json-encode.php)
 
+参考になりそう。 -> [Vue.js × axios × Firebase で掲示板アプリをつくる - 登録と一覧表示を実装](https://zenn.dev/aono/articles/6094291e3825a1)
+
 ## 履歴
 
 ### [2022/10/19]
 
 - cliからViteに
-  - わからん！CDNに戻すか？
+  - わからん！CDNに戻すか？ -> cliに。
 
 ### [2022/10/12]
 
