@@ -334,7 +334,7 @@ define('CHECK_CSRF_TOKEN', 1);
 
 /* ------------- できれば変更してほしくないところ ------------- */
 //スクリプト名
-define('PHP_SELF', 'index.php');
+define('PHP_SELF', 'veita.php');
 
 /* ------------- コンフィグ互換性管理 ------------- */
 
