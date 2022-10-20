@@ -22,7 +22,7 @@
 </head>
 <body>
   <header id="header">
-		<h1><a href="<?= PHP_SELF ?>"><?= TITLE ?></a></h1>
+		<h1><a href="./"><?= TITLE ?></a></h1>
 		<div>
 			<a href="<?= HOME ?>" target="_top">[ホーム]</a>
 			<a href="<?= PHP_SELF ?>?mode=admin_in">[管理モード]</a>
@@ -48,56 +48,56 @@
 						<label for="tools">ツール</label>
 						<select name="tools" id="tools">
 							<option value="neo">PaintBBS NEO</option>
-              <? if($use_nise_shipe_neo): ?><option value="sneo">偽しぃペNEO</option><? endif; ?>
-              <? if($use_shi_p): ?><option value="shi">しぃペインター</option><? endif; ?>
-              <? if($use_chicken): ?><option value="chicken">ChickenPaint</option><? endif; ?>
+              <?php if(USE_NISE_SHIPE_NEO): ?><option value="sneo">偽しぃペNEO</option><?php endif; ?>
+              <?php if(USE_CHICKENPAINT): ?><option value="chicken">ChickenPaint</option><?php endif; ?>
 						</select>
 						<label for="palettes">パレット</label>
-            <? if($select_palettes): ?>
+            <?php if(USE_SELECT_PALETTES): ?>
 						<select name="palettes" id="palettes">
-              <? foreach($pallets_dat as $palette): ?>
+              <?php var_dump($pallets_dat); ?>
+              <?php foreach($pallets_dat as &$palette): ?>
 							<option value="<?= $palette[1] ?>" id="<?= $palette ?>"><?= $palette[0] ?></option>
-							<? endforeach; ?>
+							<?php endforeach; ?>
 						</select>
-						<? else: ?>
+						<?php else: ?>
 						<select name="palettes" id="palettes">
 							<option value="neo" id="0">標準</option>
 						</select>
-						<? endif; ?>
-            <? if($useanime): ?>
-						<label><input type="checkbox" value="true" name="anime" title="動画記録" <? if($defanime): ?> checked <? endif; ?>>アニメーション記録</label>
-            <? endif; ?>
+						<?php endif; ?>
+            <?php if(USE_ANIME): ?>
+						<label><input type="checkbox" value="true" name="anime" title="動画記録" <?php if(DEF_ANIME): ?> checked <?php endif; ?>>アニメーション記録</label>
+            <?php endif; ?>
 						<input class="button" type="submit" value="お絵かき">
 					</p>
 				</form>
 				<ul>
 					<li>iPadやスマートフォンでも描けるお絵かき掲示板です。</li>
 					<li>お絵かきできるサイズは幅300～<?= PMAX_W ?>px、高さ300～<?= PMAX_H ?>pxです。</li>
-          <? foreach($addinfo as $info): ?><? if(!empty($info)): ?>
+          <?php foreach($addinfo as &$info): ?><?php if(!empty($info)): ?>
           <li><?= $info ?></li>
-          <? endif; ?><? endforeach; ?>
+          <?php endif; ?><?php endforeach; ?>
 				</ul>
 			</section>
 			<hr>
 			<section class="paging">
 				<p>
-          <? if($back === 0): ?>
+          <?php if($dat['back'] === 0): ?>
 					<span class="se">[START]</span>
-					<? else: ?>
-					<span class="se">&lt;&lt;<a href="<?= PHP_SELF ?>?page=<? $back ?>">[BACK]</a></span>
-					<? endif; ?>
-          <? foreach($paging as $pp): ?>
-          <? if($pp['p'] == $nowpage): ?>
-					<em class="thispage">[<? $pp['p'] ?>]</em>
-					<? else: ?>
-					<a href="<?= PHP_SELF ?>?page=<? $pp['p'] ?>">[<? $pp['p'] ?>]</a>
-					<? endif; ?>
-					<? endforeach; ?>
-          <? if($next === ($max_page + 1)): ?>
+					<?php else: ?>
+					<span class="se">&lt;&lt;<a href="./?page=<?= $dat['back'] ?>">[BACK]</a></span>
+					<?php endif; ?>
+          <?php foreach($dat['paging'] as $pp): ?>
+          <?php if($pp['p'] == $dat['nowpage']): ?>
+					<em class="thispage">[<?= $pp['p'] ?>]</em>
+					<?php else: ?>
+					<a href="./?page=<?= $pp['p'] ?>">[<?= $pp['p'] ?>]</a>
+					<?php endif; ?>
+					<?php endforeach; ?>
+          <?php if($dat['next'] === ($dat['max_page'] + 1)): ?>
 					<span class="se">[END]</span>
-					<? else: ?>
-					<span class="se"><a href="<?= PHP_SELF ?>?page=<? $next ?>">[NEXT]</a>&gt;&gt;</span>
-					<? endif; ?>
+					<?php else: ?>
+					<span class="se"><a href="./?page=<?= $dat['next'] ?>">[NEXT]</a>&gt;&gt;</span>
+					<?php endif; ?>
 				</p>
 			</section>
 		</div>
