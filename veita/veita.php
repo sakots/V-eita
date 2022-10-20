@@ -1222,8 +1222,7 @@ function res()
 	}
 
 	$dat['path'] = IMG_DIR;
-
-	//echo $blade->run(RESFILE, $dat);
+	echo json_encode($dat, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
 }
 
 //お絵描き画面

@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="css/sql/mono.min.css" id="css7" disabled>
   <link rel="stylesheet" href="css/pop/mono.min.css" id="css8" disabled>
   <script src="js/switchcss.js"></script>
+	<script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <header id="header">
@@ -54,9 +56,8 @@
 						<label for="palettes">パレット</label>
             <?php if(USE_SELECT_PALETTES): ?>
 						<select name="palettes" id="palettes">
-              <?php var_dump($pallets_dat); ?>
-              <?php foreach($pallets_dat as &$palette): ?>
-							<option value="<?= $palette[1] ?>" id="<?= $palette ?>"><?= $palette[0] ?></option>
+              <?php foreach($dat['pallets_dat'] as $palette): ?>
+							<option value="<?= $palette[1] ?>" id="<?= $palette[1] ?>"><?= $palette[0] ?></option>
 							<?php endforeach; ?>
 						</select>
 						<?php else: ?>
@@ -86,14 +87,14 @@
 					<?php else: ?>
 					<span class="se">&lt;&lt;<a href="./?page=<?= $dat['back'] ?>">[BACK]</a></span>
 					<?php endif; ?>
-          <?php foreach($dat['paging'] as $pp): ?>
-          <?php if($pp['p'] == $dat['nowpage']): ?>
-					<em class="thispage">[<?= $pp['p'] ?>]</em>
+          <?php foreach($dat['paging'] as $dat['pp']): ?>
+          <?php if($dat['pp']['p'] == $dat['nowpage']): ?>
+					<em class="thispage">[<?= $dat['pp']['p'] ?>]</em>
 					<?php else: ?>
-					<a href="./?page=<?= $pp['p'] ?>">[<?= $pp['p'] ?>]</a>
+					<a href="./?page=<?= $dat['pp']['p'] ?>">[<?= $dat['pp']['p'] ?>]</a>
 					<?php endif; ?>
 					<?php endforeach; ?>
-          <?php if($dat['next'] === ($dat['max_page'] + 1)): ?>
+          <?php if($dat['next'] == ($dat['max_page'] + 1)): ?>
 					<span class="se">[END]</span>
 					<?php else: ?>
 					<span class="se"><a href="./?page=<?= $dat['next'] ?>">[NEXT]</a>&gt;&gt;</span>
@@ -103,24 +104,254 @@
 		</div>
 	</header>
 
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script>
-    const { createApp, ref, onMounted } = Vue;
-    createApp({
-      setup() {
-      const message = ref('Hello Axios');
-      onMounted(() => {
-        axios
-          .get('https://jsonplaceholder.typicode.com/users')
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error));
-        });
-        return {
-          message,
-        };
-      },
-    }).mount('#app');
-  </script>
+	<main>
+		<div id="xapp">
+			<section class="thread" v-for="user in users">
+				<h3 class="oyat">[user.bbsline.tid] [user.bbsline.sub']</h3>
+				<section>
+					<h4 class="oya">
+						<span class="oyaname"><a href="{{$self}}?mode=search&amp;bubun=kanzen&amp;search={{$bbsline['a_name']}}">{{$bbsline['a_name']}}</a></span>
+						@if ($bbsline['admins'] == 1)
+						<svg viewBox="0 0 640 512">
+							<use href="./icons/user-check.svg#admin_badge">
+						</svg>
+						@endif
+						@if ($bbsline['modified'] == $bbsline['created'])
+						{{$bbsline['modified']}}
+						@else
+						{{$bbsline['created']}} {{$updatemark}} {{$bbsline['modified']}}
+						@endif
+						@if ($bbsline['mail'])
+						<span class="mail"><a href="mailto:{{$bbsline['mail']}}">[mail]</a></span>
+						@endif
+						@if ($bbsline['a_url'])
+						<span class="url"><a href="{{$bbsline['a_url']}}" target="_blank" rel="nofollow noopener noreferrer">[URL]</a></span>
+						@endif
+						@if ($dispid)
+						<span class="id">ID：{{$bbsline['id']}}</span>
+						@endif
+						<span class="sodane"><a href="{{$self}}?mode=sodane&amp;resto={{$bbsline['tid']}}">{{$sodane}}
+								@if ($bbsline['exid'] != 0)
+								x{{$bbsline['exid']}}
+								@else
+								+
+								@endif
+							</a></span>
+					</h4>
+					@if ($bbsline['picfile'])
+					@if ($dptime)
+					<h5>
+						{{$bbsline['tool']}} ({{$bbsline['img_w']}}x{{$bbsline['img_h']}})
+						@if ($bbsline['psec'] != null)
+						描画時間：{{$bbsline['utime']}}
+						@endif
+						@if ($bbsline['ext01'] == 1)
+						★NSFW
+						@endif
+					</h5>
+					@endif
+					<h5><a target="_blank" href="{{$path}}{{$bbsline['picfile']}}">{{$bbsline['picfile']}}</a>
+						@if ($bbsline['pchfile'] && $bbsline['tool'] !== "Chicken Paint")
+						<a href="{{$self}}?mode=anime&amp;pch={{$bbsline['pchfile']}}" target="_blank">●動画</a>
+						@endif
+						@if ($use_continue)
+						<a href="{{$self}}?mode=continue&amp;no={{$bbsline['picfile']}}">●続きを描く</a>
+						@endif
+					</h5>
+					@if ($bbsline['ext01'] == 1)
+					<a class="luminous" href="{{$path}}{{$bbsline['picfile']}}"><span class="nsfw"><img src="{{$path}}{{$bbsline['picfile']}}" alt="{{$bbsline['picfile']}}" loading="lazy" class="image"></span></a>
+					@else
+					<a class="luminous" href="{{$path}}{{$bbsline['picfile']}}"><img src="{{$path}}{{$bbsline['picfile']}}" alt="{{$bbsline['picfile']}}" loading="lazy" class="image"></a>
+					@endif
+					@endif
+					<p class="comment oya">{!! $bbsline['com'] !!}</p>
+					@if ($bbsline['rflag'])
+					<div class="res">
+						<p class="limit">
+							レス{{$bbsline['res_d_su']}}件省略。すべて見るには
+							<a href="{{$self}}?mode=res&amp;res={{$bbsline['tid']}}">
+								@if ($elapsed_time === 0 || $nowtime - $bbsline['past'] < $elapsed_time) 返信 @else すべて見る @endif </a>
+									を押してください。
+						</p>
+					</div>
+					@endif
+					@if (!empty($ko))
+					@foreach ($ko as $res)
+					@if ($bbsline['tid'] === $res['parent'])
+					@if ($res['resno'] <= $bbsline['res_d_su']) @else <section class="res">
+						<section>
+							<h3>[{{$res['tid']}}] {{$res['sub']}}</h3>
+							<h4>
+								名前：<span class="resname">{{$res['a_name']}}
+									@if ($res['admins'] == 1)
+									<svg viewBox="0 0 640 512">
+										<use href="./icons/user-check.svg#admin_badge">
+									</svg>
+									@endif
+								</span>：
+								@if ($res['modified'] == $res['created'])
+								{{$res['modified']}}
+								@else
+								{{$res['created']}} {{$updatemark}} {{$res['modified']}}
+								@endif
+								@if ($res['mail'])
+								<span class="mail"><a href="mailto:{{$res['mail']}}">[mail]</a></span>
+								@endif
+								@if ($res['a_url'])
+								<span class="url"><a href="{{$res['a_url']}}" target="_blank" rel="nofollow noopener noreferrer">[URL]</a></span>
+								@endif
+								@if ($dispid)
+								<span class="id">ID：{{$res['id']}}</span>
+								@endif
+								<span class="sodane"><a href="{{$self}}?mode=sodane&amp;resto={{$res['tid']}}">{{$sodane}}
+										@if ($res['exid'] != 0)
+										x{{$res['exid']}}
+										@else
+										+
+										@endif
+									</a></span>
+							</h4>
+							<p class="comment">{!! $res['com'] !!}</p>
+						</section>
+					</section>
+					@endif
+					@endif
+					@endforeach
+					@endif
+					<div class="thfoot">
+						@if ($share_button)
+						<span class="button"><a href="https://twitter.com/intent/tweet?&amp;text=%5B{{$bbsline['tid']}}%5D%20{{$bbsline['sub']}}%20by%20{{$bbsline['a_name']}}%20-%20{{$btitle}}&amp;url={{$base}}{{$self}}?mode=res%26res={{$bbsline['tid']}}" target="_blank"><svg viewBox="0 0 512 512">
+									<use href="./icons/twitter.svg#twitter">
+								</svg> tweet</a></span>
+						<span class="button"><a href="http://www.facebook.com/share.php?u={{$base}}{{$self}}?mode=res%26res={{$bbsline['tid']}}" class="fb btn" target="_blank"><svg viewBox="0 0 512 512">
+									<use href="./icons/facebook.svg#facebook">
+								</svg> share</a></span>
+						@endif
+						@if ($elapsed_time === 0 || $nowtime - $bbsline['past'] < $elapsed_time) <span class="button"><a href="{{$self}}?mode=res&amp;res={{$bbsline['tid']}}"><svg viewBox="0 0 512 512">
+									<use href="./icons/rep.svg#rep">
+								</svg> 返信</a></span>
+							@else
+							このスレは古いので返信できません…
+							@endif
+							<a href="#header">[↑]</a>
+							<hr>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div>
+			<section class="thread">
+				<section class="paging">
+					<p>
+						<?php if($dat['back'] === 0): ?>
+						<span class="se">[START]</span>
+						<?php else: ?>
+						<span class="se">&lt;&lt;<a href="./?page=<?= $dat['back'] ?>">[BACK]</a></span>
+						<?php endif; ?>
+						<?php foreach($dat['paging'] as $dat['pp']): ?>
+						<?php if($dat['pp']['p'] == $dat['nowpage']): ?>
+						<em class="thispage">[<?= $dat['pp']['p'] ?>]</em>
+						<?php else: ?>
+						<a href="./?page=<?= $dat['pp']['p'] ?>">[<?= $dat['pp']['p'] ?>]</a>
+						<?php endif; ?>
+						<?php endforeach; ?>
+						<?php if($dat['next'] == ($dat['max_page'] + 1)): ?>
+						<span class="se">[END]</span>
+						<?php else: ?>
+						<span class="se"><a href="./?page=<?= $dat['next'] ?>">[NEXT]</a>&gt;&gt;</span>
+						<?php endif; ?>
+					</p>
+				</section>
+				<hr>
+				<p>作者名/本文(ハッシュタグ)検索</p>
+				<form class="search" method="GET" action="{{$self}}">
+					<input type="hidden" name="mode" value="search">
+					<label><input type="radio" name="bubun" value="bubun">部分一致</label>
+					<label><input type="radio" name="bubun" value="kanzen">完全一致</label>
+					<label><input type="radio" name="tag" value="tag">本文(ハッシュタグ)</label>
+					<br>
+					<input type="text" name="search" placeholder="検索" size="20">
+					<input type="submit" value=" 検索 ">
+				</form>
+				<form class="delf" action="{{$self}}" method="post">
+					<p>
+						No <input class="form" type="number" min="1" name="delno" value="" autocomplete="off" required>
+						Pass <input class="form" type="password" name="pwd" value="" autocomplete="current-password">
+						<select class="form" name="mode">
+							<option value="edit">編集</option>
+							<option value="del">削除</option>
+						</select>
+						<input class="button" type="submit" value=" OK ">
+						<label for="mystyle">Color</label>
+						<span class="stylechanger">
+							<select class="form" name="select" id="mystyle" onchange="SetCss(this);">
+								<option value="reita/mono.min.css">REITA</option>
+								<option value="red/mono.min.css">RED</option>
+								<option value="main/mono.min.css">MONO</option>
+								<option value="dark/mono.min.css">dark</option>
+								<option value="deep/mono.min.css">deep</option>
+								<option value="mayo/mono.min.css">MAYO</option>
+								<option value="dev/mono.min.css">DEV</option>
+								<option value="sql/mono.min.css">SQL</option>
+								<option value="pop/mono.min.css">POP</option>
+							</select>
+						</span>
+					</p>
+				</form>
+				<script>
+					colorIdx = GetCookie('_veita_colorIdx');
+					document.getElementById("mystyle").selectedIndex = colorIdx;
+				</script>
+			</section>
+		</div>
+		<script src="loadcookie.js"></script>
+		<script>
+			l(); //LoadCookie
+		</script>
+		<!-- Luminous -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luminous-lightbox@2.3.2/dist/luminous-basic.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/luminous-lightbox@2.3.2/dist/luminous.min.js"></script>
+		<script>
+			new LuminousGallery(document.querySelectorAll('.luminous'), {
+				closeTrigger: "click",
+				closeWithEscape: true
+			});
+		</script>
+		<script>
+			const { createApp, ref, onMounted } = Vue;
+			createApp({
+				setup() {
+					const users = ref([]);
+					onMounted(() => {
+						axios
+						.get('veita.php')
+						.then((response) => (users.value = response.data))
+						.catch((error) => console.log(error));
+					});
+					return {
+						users,
+					};
+				},
+			}).mount('#xapp');
+		</script>
+	</main>
+
+	<footer id="footer">
+		<div class="copy">
+			<!-- 著作権表示 -->
+			<p>
+				OekakiApplet -
+				<a href="https://github.com/funige/neo/" target="_blank" rel="noopener noreferrer" title="by funige">PaintBBS NEO</a>
+				<?php if(USE_CHICKENPAINT): ?> ,<a href="https://github.com/thenickdude/chickenpaint" target="_blank" rel="nofollow noopener noreferrer" title="by Nicholas Sherlock">ChickenPaint</a> <?php endif; ?>
+			</p>
+			<p>
+				UseFunction -
+				<!-- http://wondercatstudio.com/ -->DynamicPalette,
+				<a href="https://huruihone.tumblr.com/" target="_blank" rel="noopener noreferrer" title="by Soto">AppletFit</a>,
+				<a href="https://github.com/imgix/luminous" target="_blank" rel="noopener noreferrer" title="by imgix">Luminous</a>,
+				<a href="https://v3.ja.vuejs.org/" target="_blank" rel="noopener noreferrer" title="by vuejs.org">Vue.js</a>
+			</p>
+		</div>
+	</footer>
 </body>
 </html>

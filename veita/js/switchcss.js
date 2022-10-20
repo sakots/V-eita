@@ -1,4 +1,4 @@
-var colorIdx = GetCookie("_monoreita_colorIdx");
+var colorIdx = GetCookie("_veita_colorIdx");
 switch (Number(colorIdx)) {
     case 1:
         document.getElementById("css1").removeAttribute("disabled");
@@ -27,7 +27,7 @@ switch (Number(colorIdx)) {
 }
 function SetCss(obj){
     var idx = obj.selectedIndex;
-    SetCookie("_monoreita_colorIdx",idx);
+    SetCookie("_veita_colorIdx",idx);
     window.location.reload();
 }
 function GetCookie(key){
