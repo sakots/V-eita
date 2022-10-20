@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<?
+<?php
   require(__DIR__ . '/veita.php');
 ?>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -56,7 +56,7 @@
             <? if($select_palettes): ?>
 						<select name="palettes" id="palettes">
               <? foreach($pallets_dat as $palette): ?>
-							<option value="<? $palette[1] ?>" id="<? $palette ?>"><? $palette[0] ?></option>
+							<option value="<?= $palette[1] ?>" id="<?= $palette ?>"><?= $palette[0] ?></option>
 							<? endforeach; ?>
 						</select>
 						<? else: ?>
@@ -74,7 +74,7 @@
 					<li>iPadやスマートフォンでも描けるお絵かき掲示板です。</li>
 					<li>お絵かきできるサイズは幅300～<?= PMAX_W ?>px、高さ300～<?= PMAX_H ?>pxです。</li>
           <? foreach($addinfo as $info): ?><? if(!empty($info)): ?>
-          <li><? $info ?></li>
+          <li><?= $info ?></li>
           <? endif; ?><? endforeach; ?>
 				</ul>
 			</section>

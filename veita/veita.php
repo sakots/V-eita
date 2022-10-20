@@ -782,7 +782,7 @@ function reply()
 //通常表示モード
 function def()
 {
-	global $dat, $blade;
+	global $dat;
 	$dsp_res = DSP_RES;
 	$page_def = PAGE_DEF;
 
@@ -954,7 +954,7 @@ function def()
 		$dat['dsp_res'] = DSP_RES;
 		$dat['path'] = IMG_DIR;
 
-		echo $blade->run(MAINFILE, $dat);
+		//echo $blade->run(MAINFILE, $dat);
 		$db = null; //db切断
 	} catch (PDOException $e) {
 		echo "DB接続エラー:" . $e->getMessage();
@@ -964,7 +964,7 @@ function def()
 //カタログモード
 function catalog()
 {
-	global $blade, $dat;
+	global $dat;
 	$page_def = CATALOG_N;
 
 	//ページング
@@ -1039,7 +1039,7 @@ function catalog()
 
 		//$smarty->debugging = true;
 		$dat['catalogmode'] = 'catalog';
-		echo $blade->run(CATALOGFILE, $dat);
+		//echo $blade->run(CATALOGFILE, $dat);
 		$db = null; //db切断
 	} catch (PDOException $e) {
 		echo "DB接続エラー:" . $e->getMessage();
@@ -1049,7 +1049,7 @@ function catalog()
 //検索モード 現在全件表示のみ対応
 function search()
 {
-	global $blade, $dat;
+	global $dat;
 
 	$searchf = filter_input(INPUT_GET, 'search');
 	$search = str_replace("'", "''", $searchf); //SQL
@@ -1094,7 +1094,7 @@ function search()
 		$dat['path'] = IMG_DIR;
 
 		$dat['s_result'] = $i;
-		echo $blade->run(CATALOGFILE, $dat);
+		//echo $blade->run(CATALOGFILE, $dat);
 		$db = null; //db切断
 	} catch (PDOException $e) {
 		echo "DB接続エラー:" . $e->getMessage();
@@ -1121,7 +1121,7 @@ function sodane()
 
 function res()
 {
-	global $blade, $dat;
+	global $dat;
 	$resno = filter_input(INPUT_GET, 'res');
 	$dat['resno'] = $resno;
 
@@ -1223,7 +1223,7 @@ function res()
 
 	$dat['path'] = IMG_DIR;
 
-	echo $blade->run(RESFILE, $dat);
+	//echo $blade->run(RESFILE, $dat);
 }
 
 //お絵描き画面
@@ -1231,7 +1231,7 @@ function paintform($rep)
 {
 	global $message, $usercode, $quality, $qualitys, $no;
 	global $mode, $ctype, $pch, $type;
-	global $blade, $dat;
+	global $dat;
 	global $pallets_dat;
 
 	$pwd = trim(filter_input(INPUT_POST, 'pwd'));
@@ -1400,14 +1400,14 @@ function paintform($rep)
 		$dat['mode'] = 'piccom';
 	}
 	//出力
-	echo $blade->run(PAINTFILE, $dat);
+	//echo $blade->run(PAINTFILE, $dat);
 }
 
 //アニメ再生
 
 function openpch($pch, $sp = "")
 {
-	global $blade, $dat;
+	global $dat;
 	$message = "";
 
 	$pch = filter_input(INPUT_GET, 'pch');
@@ -1455,14 +1455,14 @@ function openpch($pch, $sp = "")
 	$dat['path'] = IMG_DIR;
 	$dat['a_stime'] = time();
 
-	echo $blade->run(ANIMEFILE, $dat);
+	//echo $blade->run(ANIMEFILE, $dat);
 }
 
 //お絵かき投稿
 function paintcom($tmpmode)
 {
 	global $usercode, $ptime;
-	global $blade, $dat;
+	global $dat;
 
 	$dat['parent'] = $_SERVER['REQUEST_TIME'];
 	$dat['usercode'] = $usercode;
@@ -1546,13 +1546,13 @@ function paintcom($tmpmode)
 	$tmp2 = array();
 	$dat['tmp'] = $tmp2;
 
-	echo $blade->run(PICFILE, $dat);
+	//echo $blade->run(PICFILE, $dat);
 }
 
 //コンティニュー画面in
 function incontinue($no)
 {
-	global $blade, $dat;
+	global $dat;
 	$dat['othermode'] = 'incontinue';
 	$dat['continue_mode'] = true;
 
@@ -1606,7 +1606,7 @@ function incontinue($no)
 		echo "DB接続エラー:" . $e->getMessage();
 	}
 
-	echo $blade->run(OTHERFILE, $dat);
+	//echo $blade->run(OTHERFILE, $dat);
 }
 
 //削除くん
@@ -1870,7 +1870,7 @@ function picreplace()
 function editform()
 {
 	global $admin_pass;
-	global $blade, $dat;
+	global $dat;
 
 	//csrfトークンをセット
 	$dat['token'] = '';
@@ -1934,7 +1934,7 @@ function editform()
 		$db = null; //db切断
 
 		$dat['othermode'] = 'edit'; //編集モード
-		echo $blade->run(OTHERFILE, $dat);
+		//echo $blade->run(OTHERFILE, $dat);
 	} catch (PDOException $e) {
 		echo "DB接続エラー:" . $e->getMessage();
 	}
@@ -2031,17 +2031,17 @@ function editexec()
 //管理モードin
 function admin_in()
 {
-	global $blade, $dat;
+	global $dat;
 	$dat['othermode'] = 'admin_in';
 
-	echo $blade->run(OTHERFILE, $dat);
+	//echo $blade->run(OTHERFILE, $dat);
 }
 
 //管理モード
 function admin()
 {
 	global $admin_pass;
-	global $blade, $dat;
+	global $dat;
 
 	$dat['path'] = IMG_DIR;
 
@@ -2074,7 +2074,7 @@ function admin()
 				$ko[] = $res;
 			}
 			$dat['ko'] = $ko;
-			echo $blade->run(ADMINFILE, $dat);
+			//echo $blade->run(ADMINFILE, $dat);
 		} else {
 			$db = null; //db切断
 			error('管理パスを入力してください');
@@ -2115,21 +2115,21 @@ function usrchk()
 //OK画面
 function ok($mes)
 {
-	global $blade, $dat;
+	global $dat;
 	$dat['okmes'] = $mes;
 	$dat['othermode'] = 'ok';
-	echo $blade->run(OTHERFILE, $dat);
+	//echo $blade->run(OTHERFILE, $dat);
 }
 
 //エラー画面
 function error($mes)
 {
 	global $db;
-	global $blade, $dat;
+	global $dat;
 	$db = null; //db切断
 	$dat['errmes'] = $mes;
 	$dat['othermode'] = 'err';
-	echo $blade->run(OTHERFILE, $dat);
+	//echo $blade->run(OTHERFILE, $dat);
 	exit;
 }
 
@@ -2137,10 +2137,10 @@ function error($mes)
 function error2()
 {
 	global $db;
-	global $blade, $dat;
+	global $dat;
 	$db = null; //db切断
 	$dat['othermode'] = 'err2';
-	echo $blade->run(OTHERFILE, $dat);
+	//echo $blade->run(OTHERFILE, $dat);
 	exit;
 }
 
