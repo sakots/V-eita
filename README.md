@@ -10,8 +10,11 @@
 
 データベースはsqlite。phpでjson出力したらできそう。 -> [json-encode](https://www.php.net/manual/ja/function.json-encode.php)
 
-
 ## 履歴
+
+### [2022/10/21]
+
+json_encodeがうまくいかない
 
 ### [2022/10/20]
 
