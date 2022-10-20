@@ -1,8 +1,8 @@
 *.db
 
-*/BladeOne
 */chickenpaint
 */neo
 */cache
 */session
 */tmp
+*/src
