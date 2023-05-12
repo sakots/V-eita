@@ -1,5 +1,7 @@
 # Veita
 
+This template should help get you started developing with Vue 3 in Vite.
+
 ## Vue.jsのお絵かき掲示板
 
 やっぱりなんかVueでお絵かき掲示板作れる気がするぞ、っておもってまたはじめました。
@@ -10,7 +12,13 @@
 
 データベースはsqlite。phpでjson出力したらできそう。 -> [json-encode](https://www.php.net/manual/ja/function.json-encode.php)
 
+---
+
 ## 履歴
+
+### [0223/05/12]
+
+- いちからやりなおし
 
 ### [2022/10/21]
 
@@ -44,3 +52,31 @@ json_encodeがうまくいかない
 ### [2022/08/26]
 
 - 開始
+
+---
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
