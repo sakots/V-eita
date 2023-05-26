@@ -28,4 +28,5 @@ coverage
 *.sw?
 
 *.db
-config.php
+/php/config.php
+/php/*.json
