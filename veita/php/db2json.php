@@ -182,8 +182,14 @@ try {
   $dat['dsp_res'] = DSP_RES;
   $dat['path'] = IMG_DIR;
 
+  // jsonに変換
+  $oya_json = json_encode($oya, JSON_UNESCAPED_UNICODE);
+
   // jsonのテキスト書き込み
-  file_put_contents('oya.json', $oya, FILE_APPEND | LOCK_EX);
+  if (file_exists('oya.json')) {
+    unlink('oya.json');
+  }
+  file_put_contents('oya.json', $oya_json, FILE_APPEND | LOCK_EX);
 
   $db = null; //db切断
 } catch (PDOException $e) {

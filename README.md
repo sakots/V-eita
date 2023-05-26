@@ -16,7 +16,11 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## 履歴
 
-### [0223/05/12]
+### [2023/05/27]
+
+- jsonデータの出力と取得に成功
+
+### [2023/05/12]
 
 - いちからやりなおし
 
