@@ -3,6 +3,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+.vscode
+
 # Editor directories and files
 .idea
 *.suo
