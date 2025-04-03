@@ -28,3 +28,7 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+/backend/images
+/backend/images/*
+/backend/*.db
