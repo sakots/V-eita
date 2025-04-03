@@ -915,7 +915,7 @@ function def()
 				//日付をUNIX時間に変換して設定どおりにフォーマット
 				$res['created'] = date(DATE_FORMAT, strtotime($res['created']));
 				$res['modified'] = date(DATE_FORMAT, strtotime($res['modified']));
-				$ko[$oya_id] = $res;
+				$bbs_line[$j] = $res;
 				$j++;
 			}
 			// http、https以外のURLの場合表示しない
@@ -940,15 +940,14 @@ function def()
 			$bbs_line['past'] = strtotime($bbs_line['created']); // このスレは古いので用
 			$bbs_line['created'] = date(DATE_FORMAT, strtotime($bbs_line['created']));
 			$bbs_line['modified'] = date(DATE_FORMAT, strtotime($bbs_line['modified']));
-			$oya[] = $bbs_line;
+			$dat['oya'][$i] = $bbs_line;
 			$i++;
 		}
 
-		$dat['ko'] = $ko;
-		$dat['oya'] = $oya;
 		$dat['dsp_res'] = DSP_RES;
 		$dat['path'] = IMG_DIR;
 
+		header('Access-Control-Allow-Origin: http://localhost:5173');
 		echo json_encode($dat, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		$db = null; //db切断
 	} catch (PDOException $e) {
