@@ -263,8 +263,8 @@ define('USE_HASHTAG', 1);
 
 //フォーム下の追加お知らせ <li></li>で囲まれます。
 //(例) $add_info = array('まだまだ開発中…','バグがあったら教えてね');
-//設定しないなら $add_info = array(''); で
-$add_info = array('<a href="https://github.com/sakots/V-eita">ソースはこちら</a>', 'まだまだ開発中…バグがあったら教えてね。');
+//設定しないなら $add_info = array(""); で
+$add_info = array("<a href='https://github.com/sakots/V-eita'>ソースはこちら</a>", "まだまだ開発中…バグがあったら教えてね。");
 
 /* ---------- お絵かき設定 ---------- */
 
