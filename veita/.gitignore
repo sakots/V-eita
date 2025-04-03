@@ -32,3 +32,4 @@ coverage
 /backend/images
 /backend/images/*
 /backend/*.db
+/backend/config.php
