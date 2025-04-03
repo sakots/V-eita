@@ -27,6 +27,4 @@ coverage
 *.sln
 *.sw?
 
-*.db
-/php/config.php
-/php/*.json
+*.tsbuildinfo
