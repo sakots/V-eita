@@ -949,7 +949,7 @@ function def()
 		$dat['dsp_res'] = DSP_RES;
 		$dat['path'] = IMG_DIR;
 
-		echo json_encode($dat, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
+		echo json_encode($dat, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 		$db = null; //db切断
 	} catch (PDOException $e) {
 		echo "DB接続エラー:" . $e->getMessage();
