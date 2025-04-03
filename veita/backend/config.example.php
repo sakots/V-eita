@@ -25,7 +25,7 @@ define('THEMEDIR', 'monoreita');
 
 //設置URL phpのあるディレクトリの'/'まで
 //シェアボタンなどで使用
-define('BASE', 'https://example.com/noreita/');
+define('BASE', 'https://example.com/veita/');
 
 //掲示板のタイトル（<title>とTOP）
 define('TITLE', 'お絵かき掲示板');
