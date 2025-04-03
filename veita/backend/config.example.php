@@ -1,14 +1,14 @@
 <?php
 //--------------------------------------------------
-//  noReita v1.3.0～
+//  V-eita v0.0.0～
 //  by sakots >> https://oekakibbs.moe/
-//  noReitaの設定ファイルです。
+//  V-eitaの設定ファイルです。
 //--------------------------------------------------
 
 /* ---------- 最初に設定する項目 ---------- */
 //管理者パスワード
-//必ず変更してください ! kanripass のままではプログラムは動作しません !
-$admin_pass = 'kanripass';
+//必ず変更してください ! admin_pass のままではプログラムは動作しません !
+$admin_pass = 'admin_pass';
 
 //管理者名
 //投稿の際に名前がこれでパスワードが管理パスのときに、名前のあとに管理者マークが付きます
@@ -43,9 +43,9 @@ define('USE_CHICKENPAINT', 1);
 
 /* -------- データベース名 -------- */
 
-//初期設定のままの場合、reita.dbとなります。
+//初期設定のままの場合、veita.dbとなります。
 //拡張子は.dbで固定です。
-define('DB_NAME', 'reita');
+define('DB_NAME', 'veita');
 
 /* ---------- SNS連携 ---------- */
 
@@ -63,7 +63,7 @@ define('USE_NSFW', 1);
 
 //IDを表示する する:1 しない:0
 //違う名前でも同一人物だとわかります。
-define('DISP_ID', 1);
+define('DISPLAY_ID', 1);
 
 //ID生成の種
 define('ID_SEED', 'IDの種');
@@ -78,16 +78,16 @@ define('ADMIN_CAP', '(ではない)');
 /* ---------- スパム対策 ---------- */
 
 //拒絶する文字列
-$badstring = array("irc.s16.xrea.com", "著作権の侵害", "未承諾広告");
+$bad_string = array("irc.s16.xrea.com", "著作権の侵害", "未承諾広告");
 
 //使用できない名前
-$badname = array("ブランド", "通販", "販売", "口コミ");
+$bad_name = array("ブランド", "通販", "販売", "口コミ");
 
 //全角半角スペース改行を考慮する必要はありません
 //スペースと改行を除去した文字列をチェックします
 
 //設定しないなら ""で。
-// $badname = array("");
+// $bad_name = array("");
 
 //初期設定では「"通販"を含む名前」の投稿を拒絶します
 //ここで設定したNGワードが有効になるのは「名前」だけです
@@ -98,16 +98,16 @@ $badname = array("ブランド", "通販", "販売", "口コミ");
 //拒絶する文字列で
 
 //AとBが両方あったら拒絶。
-$badstr_A = array("激安", "低価", "コピー", "品質を?重視", "大量入荷");
-$badstr_B = array("シャネル", "シュプリーム", "バレンシアガ", "ブランド");
+$bad_str_A = array("激安", "低価", "コピー", "品質を?重視", "大量入荷");
+$bad_str_B = array("シャネル", "シュプリーム", "バレンシアガ", "ブランド");
 
 //正規表現を使うことができます。
 //全角半角スペース改行を考慮する必要はありません
 //スペースと改行を除去した文字列をチェックします
 
 //設定しないなら ""で。
-//$badstr_A = array("");
-//$badstr_B = array("");
+//$bad_str_A = array("");
+//$bad_str_B = array("");
 
 //AとBの単語が2つあったら拒絶します。
 //初期設定では「ブランド品のコピー」という投稿を拒絶します。
@@ -118,7 +118,7 @@ $badstr_B = array("シャネル", "シュプリーム", "バレンシアガ", "�
 //拒絶する文字列で
 
 //本文に日本語がなければ拒絶
-define('USE_JAPANESEFILTER', 1);
+define('USE_JAPANESE_FILTER', 1);
 
 //本文へのURLの書き込みを禁止する する:1 しない:0
 define('DENY_COMMENTS_URL', 0);
@@ -134,10 +134,10 @@ define('ELAPSED_DAYS', 365);
 
 //拒絶するファイルのmd5
 //…使う？？
-$badfile = array("dummy", "dummy2");
+$bad_file = array("dummy", "dummy2");
 
 //拒絶するホスト
-$badip = array("dummy.example.com", "198.51.100.0");
+$bad_ip = array("dummy.example.com", "198.51.100.0");
 
 //ペイント画面の暗号化キー
 //phpの内部で処理するので覚えておく必要はありません。
@@ -256,15 +256,15 @@ define('USE_SUB', 0);
 define('DEF_SUB', '無題');  //未入力時の題名
 
 //レス時にスレ題名を引用する する:1 しない:0
-define('USE_RESUB', 1);
+define('USE_RE_SUB', 1);
 
 //ハッシュタグリンク機能を使う 使う:1 使わない:0
 define('USE_HASHTAG', 1);
 
 //フォーム下の追加お知らせ <li></li>で囲まれます。
-//(例) $addinfo = array('まだまだ開発中…','バグがあったら教えてね');
-//設定しないなら $addinfo = array(''); で
-$addinfo = array('<a href="https://github.com/sakots/noReita">ソースはこちら</a>', 'まだまだ開発中…バグがあったら教えてね。');
+//(例) $add_info = array('まだまだ開発中…','バグがあったら教えてね');
+//設定しないなら $add_info = array(''); で
+$add_info = array('<a href="https://github.com/sakots/V-eita">ソースはこちら</a>', 'まだまだ開発中…バグがあったら教えてね。');
 
 /* ---------- お絵かき設定 ---------- */
 
@@ -278,18 +278,18 @@ define('TEMP_LIMIT', 14);
 
 //お絵描き最大サイズ（これ以上は強制でこの値
 //最小値は幅、高さともに 300 固定です
-define('PMAX_W', 800);  //幅
-define('PMAX_H', 800);  //高さ
+define('P_MAX_W', 800);  //幅
+define('P_MAX_H', 800);  //高さ
 
 //お絵描きデフォルトサイズ
-define('PDEF_W', 400);  //幅
-define('PDEF_H', 400);  //高さ
+define('P_DEF_W', 400);  //幅
+define('P_DEF_H', 400);  //高さ
 
 //描画時間の表示 する:1 しない:0
-define('DSP_PAINTTIME', 1);
+define('DSP_PAINT_TIME', 1);
 
 //パレットデータファイル名
-define('PALETTEFILE', 'palette.txt');
+define('PALETTE_FILE', 'palette.txt');
 
 //パレットデータファイル切り替え機能を使用する する:1 しない:0
 //切り替えるパレットデータファイルが用意できない場合は しない:0。
@@ -336,4 +336,4 @@ define('PHP_SELF', 'index.php');
 
 /* ------------- コンフィグ互換性管理 ------------- */
 
-define('CONF_VER', 220122);
+define('CONF_VER', 250403);
