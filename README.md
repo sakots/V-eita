@@ -18,7 +18,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ### [2025/04/03]
 
-- またいちからやりなおし
+- またいちからやりなおし → バックエンドからデータを渡すまでできた
 
 ### [2023/05/27]
 
