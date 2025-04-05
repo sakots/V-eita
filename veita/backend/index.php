@@ -874,9 +874,6 @@ function def()
 		$posts->bindValue(2, $page_def, PDO::PARAM_INT);
 		$posts->execute();
 
-		$ko = array();
-		$oya = array();
-
 		$i = 0; //スレ
 		$j = 0; //レス
 		while ($i < PAGE_DEF) {
@@ -928,7 +925,7 @@ function def()
 				//日付をUNIX時間に変換して設定どおりにフォーマット
 				$res['created'] = date(DATE_FORMAT, strtotime($res['created']));
 				$res['modified'] = date(DATE_FORMAT, strtotime($res['modified']));
-				$bbs_line[$j] = $res;
+				$bbs_line[$j] = ["res" => $res];
 				$j++;
 			}
 			// http、https以外のURLの場合表示しない
