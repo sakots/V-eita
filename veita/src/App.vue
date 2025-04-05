@@ -56,32 +56,32 @@
               </p>
             </div>
             <div v-if="thread.res">
-              <div v-for="(res, index) in thread.res" v-bind:key="index">
-                <section v-if="res['resno'] <= thread['res_d_su']" class="res">
+              <div v-for="(re, index) in thread.res" v-bind:key="index">
+                <section class="res">
                   <section>
-                    <h3>[{{ res['tid'] }}] {{ res['sub'] }}</h3>
+                    <h3>[{{ re['tid'] }}] {{ re['sub'] }}</h3>
                     <h4>
-                      名前：<span class="res_name">{{ res['a_name'] }}
-                      <svg v-if="res['admin'] === 1" viewBox="0 0 640 512">
+                      名前：<span class="res_name">{{ re['a_name'] }}
+                      <svg v-if="re['admin'] === 1" viewBox="0 0 640 512">
 										    <use href="./icons/user-check.svg#admin_badge" />
 									    </svg>
                       </span>
-                      <span v-if="res['modified'] === res['created']">{{ res['modified'] }}</span>
-                      <span v-else>{{ res['created'] }} {{threads.update_mark}} {{ res['modified'] }}</span>
-                      <span v-if="res['mail']" class="mail"><a v-bind:href="'mailto:' + res['mail']"> [mail]</a></span>
-                      <span v-if="res['a_url']" class="url"><a v-bind:href="res['a_url']" target="_blank" rel="nofollow noopener noreferrer"> [URL]</a></span>
-                      <span v-if="threads.display_id" class="id"> ID：{{ res['id'] }}</span>
-                      <span class="sodane"> <a v-bind:href="'./?mode=sodane&amp;res_to=' + res['tid']">{{ res.sodane }}
-                      <span v-if="res['exid'] != 0">x{{ res['exid'] }}</span>
+                      <span v-if="re['modified'] === re['created']">{{ re['modified'] }}</span>
+                      <span v-else>{{ re['created'] }} {{threads.update_mark}} {{ re['modified'] }}</span>
+                      <span v-if="re['mail']" class="mail"><a v-bind:href="'mailto:' + re['mail']"> [mail]</a></span>
+                      <span v-if="re['a_url']" class="url"><a v-bind:href="re['a_url']" target="_blank" rel="nofollow noopener noreferrer"> [URL]</a></span>
+                      <span v-if="threads.display_id" class="id"> ID：{{ re['id'] }}</span>
+                      <span class="sodane"> <a v-bind:href="'./?mode=sodane&amp;res_to=' + re['tid']">{{ re.sodane }}
+                      <span v-if="re['exid'] != 0">x{{ re['exid'] }}</span>
                       <span v-else >+</span>
 						          </a></span>
                     </h4>
-                    <p class="comment" v-html="res['com']"></p>
+                    <p class="comment" v-html="re['com']"></p>
                   </section>
                 </section>
               </div>
             </div>
-            <div class="thfoot">
+            <div class="th_foot">
               <span v-if="threads.share_button" class="button"><a v-bind:href="'https://x.com/intent/tweet?&amp;text=%5B' + thread['tid'] + '%5D%20' + thread['sub'] + '%20by%20' + thread['a_name'] + '%20-%20' + threads.b_title + '&amp;url=' + threads.base + './?mode=res%26res=' + thread['tid']" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/twitter.svg#twitter" /></svg> tweet</a></span>
               <span v-if="threads.share_button" class="button"><a v-bind:href="'http://www.facebook.com/share.php?u=' + threads.base + './?mode=res%26res=' + thread['tid']" class="fb btn" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/facebook.svg#facebook" /></svg> share</a></span>
 

@@ -16,6 +16,10 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## 履歴
 
+### [2025/04/06]
+
+- レス表示できた
+
 ### [2025/04/05]
 
 - css
