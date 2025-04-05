@@ -925,7 +925,7 @@ function def()
 				//日付をUNIX時間に変換して設定どおりにフォーマット
 				$res['created'] = date(DATE_FORMAT, strtotime($res['created']));
 				$res['modified'] = date(DATE_FORMAT, strtotime($res['modified']));
-				$bbs_line[$j] = ["res" => $res];
+				$bbs_line['res'][$j] = $res;
 				$j++;
 			}
 			// http、https以外のURLの場合表示しない
