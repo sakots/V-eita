@@ -20,6 +20,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 - css
 - ヘッダーあたりできた
+- スレッドまで表示できた
 
 ### [2025/04/03]
 
