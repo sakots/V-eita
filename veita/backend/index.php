@@ -288,6 +288,8 @@ switch ($mode) {
 		return admin_in();
 	case 'admin':
 		return admin();
+	case 'get_header':
+		return get_header();
 	default:
 		return def();
 }
@@ -774,6 +776,14 @@ function reply()
 	unset($name, $mail, $sub, $com, $url, $pwd, $pwd_h, $res_to, $pic_tmp, $pic_file, $mode);
 	//header('Location:'.PHP_SELF);
 	ok('書き込みに成功しました。画面を切り替えます。');
+}
+
+//ヘッダー表示
+function get_header()
+{
+	global $dat;
+	header('Access-Control-Allow-Origin: http://localhost:5173');
+	echo json_encode($dat, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 }
 
 //通常表示モード

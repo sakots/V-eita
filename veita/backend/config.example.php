@@ -191,7 +191,7 @@ define('C_SECURITY_TIMER', '');
 /* ---------- メイン設定 ---------- */
 
 //画像と動画データ保存ディレクトリ。index.phpから見て
-define('IMG_DIR', 'src/');
+define('IMG_DIR', 'images/');
 
 //投稿容量制限 KB
 define('MAX_KB', 2000);
