@@ -1,16 +1,22 @@
 <template>
-  <header>
-    <h1>{{ boardName }}</h1>
-    <hr />
+  <header id="header">
+    <headerItem />
   </header>
-  <main></main>
+  <main>
+    <div class="thread" v-for="thread in threads" :key="thread.id">
+      <h2>{{ thread.title }}</h2>
+      <p>{{ thread.content }}</p>
+      <p>投稿日: {{ thread.created_at }}</p>
+      <p>スレッドID: {{ thread.id }}</p>
+    </div>
+  </main>
 </template>
 
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
-const boardName = ref(import.meta.env.VITE_BOARD_NAME)
+import headerItem from './components/headerItem.vue'
 
 const threads = ref()
 const getThreads = () => {
@@ -20,7 +26,6 @@ const getThreads = () => {
 }
 //DOM読み込み後に展開する
 onMounted(async () => {
-  const logs = await getThreads()
-  console.log(logs) //値が展開されている
+  getThreads()
 })
 </script>
