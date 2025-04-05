@@ -240,6 +240,9 @@ if (filter_input(INPUT_GET, 'mode') === "catalog") {
 if (filter_input(INPUT_GET, 'mode') === "search") {
 	$mode = "search";
 }
+if (filter_input(INPUT_GET, 'mode') === "get_header") {
+	$mode = "get_header";
+}
 
 switch ($mode) {
 	case 'resist':
