@@ -18,7 +18,7 @@
         <h3 class="oya_t">[{{ thread['tid'] }}] {{ thread['sub'] }}</h3>
         <section>
           <h4 class="oya">
-            <span class="oya_name"><a v-bind:href="'./?mode=search&amp;division=perf&amp;search=' + thread['a_name']">{{ thread['a_name'] }}</a></span>
+            <span class="oya_name"><a v-bind:href="baseUrl + './?mode=search&amp;division=perf&amp;search=' + thread['a_name']">{{ thread['a_name'] }}</a></span>
 						<svg v-if="thread['admins'] === 1" viewBox="0 0 640 512">
 							<use href="./icons/user-check.svg#admin_badge" />
 						</svg>
@@ -39,12 +39,12 @@
               <span v-if="thread['ext01'] === 1">★NSFW</span>
             </h5>
   					<h5>
-              <a target="_blank" v-bind:href="threads.path + thread['picfile']">{{ thread['picfile'] }}</a>
-						  <a v-if="thread['pchfile'] && thread['tool'] !== 'Chicken Paint'" v-bind:href="'./?mode=anime&amp;pch=' +  thread['pchfile'] " target="_blank"> ●動画</a>
+              <a target="_blank" v-bind:href="baseUrl + threads.path + thread['picfile']">{{ thread['picfile'] }}</a>
+						  <a v-if="thread['pchfile'] && thread['tool'] !== 'Chicken Paint'" v-bind:href="baseUrl + './?mode=anime&amp;pch=' +  thread['pchfile'] " target="_blank"> ●動画</a>
 						  <a v-if="threads.use_continue" v-bind:href="'./?mode=continue&amp;no=' + thread['picfile']"> ●続きを描く</a>
 					  </h5>
-            <a v-if="thread['ext01'] === 1" class="luminous" v-bind:href="threads.path + thread['picfile']"><span class="nsfw"><img v-bind:src="threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></span></a>
-            <a v-else class="luminous" v-bind:href="threads.path + thread['picfile']"><img v-bind:src="threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></a>
+            <a v-if="thread['ext01'] === 1" class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']"><span class="nsfw"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></span></a>
+            <a v-else class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></a>
 					  <p class="comment oya" v-html="thread['com']"></p>
             <div v-if="thread['r_flag']" class="res">
               <p class="limit">
@@ -85,13 +85,48 @@
               <span v-if="threads.share_button" class="button"><a v-bind:href="'https://x.com/intent/tweet?&amp;text=%5B' + thread['tid'] + '%5D%20' + thread['sub'] + '%20by%20' + thread['a_name'] + '%20-%20' + threads.b_title + '&amp;url=' + threads.base + './?mode=res%26res=' + thread['tid']" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/twitter.svg#twitter" /></svg> tweet</a></span>
               <span v-if="threads.share_button" class="button"><a v-bind:href="'http://www.facebook.com/share.php?u=' + threads.base + './?mode=res%26res=' + thread['tid']" class="fb btn" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/facebook.svg#facebook" /></svg> share</a></span>
 
-              <span v-if="threads.elapsed_time === 0 || threads.now_time - thread['past'] < thread.elapsed_time"><span class="button"><a href="{{$self}}?mode=res&amp;res={{$bbsline['tid']}}"><svg viewBox="0 0 512 512"><use href="./theme/{{$themedir}}/icons/rep.svg#rep" /></svg> 返信</a></span></span>
+              <span v-if="threads.elapsed_time === 0 || threads.now_time - thread['past'] < threads.elapsed_time"><span class="button"><a v-bind:href="'./?mode=res&amp;res=' + thread['tid']"><svg viewBox="0 0 512 512"><use href="./icons/rep.svg#rep" /></svg> 返信</a></span></span>
               <span v-else>このスレは古いので返信できません…</span>
               <a href="#header">[↑]</a>
               <hr />
             </div>
           </div>
 				</section>
+      </section>
+    </div>
+    <div>
+      <section class="thread">
+        <section class="paging">
+          <p v-if="threads">
+            <span v-if="threads.back === 0" class="se">[START]</span>
+            <span v-else class="se">&lt;&lt;<a v-bind:href="'./?page='+ threads.back">[BACK]</a></span>
+            <a v-for="(paging, index) in threads.paging" v-bind:href="'./?page=' + paging['p']" v-bind:key="index"><span v-if="paging['p'] === threads.now_page"  class="this_page">[{{ paging['p'] }}]</span><span v-else>[{{ paging['p'] }}]</span></a>
+            <span v-if="threads.next === threads.max_page + 1" class="se">[END]</span>
+            <span v-else class="se"><a v-bind:href="'./?page=' + threads.next">[NEXT]</a>&gt;&gt;</span>
+          </p>
+        </section>
+        <hr>
+				<p>作者名/本文(ハッシュタグ)検索</p>
+				<form class="search" method="GET" action="{{$self}}">
+					<input type="hidden" name="mode" value="search">
+					<label><input type="radio" name="division" value="division">部分一致</label>
+					<label><input type="radio" name="division" value="kanzen">完全一致</label>
+					<label><input type="radio" name="tag" value="tag">本文(ハッシュタグ)</label>
+					<br>
+					<input type="text" name="search" placeholder="検索" size="20">
+					<input type="submit" value=" 検索 ">
+				</form>
+				<form class="del_f" action="{{$self}}" method="post">
+					<p>
+						No <input class="form" type="number" min="1" name="del_no" value="" autocomplete="off" required>
+						Pass <input class="form" type="password" name="pwd" value="" autocomplete="current-password">
+						<select class="form" name="mode">
+							<option value="edit">編集</option>
+							<option value="del">削除</option>
+						</select>
+						<input class="button" type="submit" value=" OK ">
+					</p>
+				</form>
       </section>
     </div>
   </main>
@@ -104,9 +139,10 @@ import { ref, onMounted } from 'vue'
 import headerItem from './components/headerItem.vue'
 
 const threads = ref()
+const baseUrl = import.meta.env.VITE_BASE_URL
 const getThreads = () => {
   const param = location.search;
-  axios.get(import.meta.env.VITE_BASE_URL + param ).then((res) => {
+  axios.get(baseUrl + param ).then((res) => {
     threads.value = res.data
   })
 }

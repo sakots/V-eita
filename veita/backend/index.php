@@ -1075,11 +1075,11 @@ function search()
 			$sql = "SELECT * FROM tlog WHERE com LIKE ? AND invz=0 ORDER BY age DESC, tree DESC";
 			$posts = $db->prepare($sql);
 			$posts->execute(["%$search%"]);
-			$dat['catalogmode'] = 'hashsearch';
+			$dat['catalog_mode'] = 'hash_search';
 			$dat['tag'] = $search_f;
 		} else {
 			//tagがなければ作者名検索(スレッドのみ)
-			if ($division == "division") {
+			if ($division === "division") {
 				$sql = "SELECT * FROM tlog WHERE a_name LIKE ? AND invz=0 AND thread=1 ORDER BY age DESC, tree DESC";
 				$posts = $db->prepare($sql);
 				$posts->execute(["%$search%"]);
@@ -1089,7 +1089,7 @@ function search()
 				$posts = $db->prepare($sql);
 				$posts->execute([$search]);
 			}
-			$dat['catalogmode'] = 'search';
+			$dat['catalog_mode'] = 'search';
 			$dat['author'] = $search_f;
 		}
 
@@ -1126,6 +1126,7 @@ function sodane()
 		echo "DB接続エラー:" . $e->getMessage();
 	}
 	header('Location:' . PHP_SELF);
+	header('Access-Control-Allow-Origin: http://localhost:5173');
 	def();
 }
 //レス画面
