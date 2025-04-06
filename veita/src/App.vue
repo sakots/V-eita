@@ -44,7 +44,7 @@
 						  <a v-if="threads.use_continue" v-bind:href="'./?mode=continue&amp;no=' + thread['picfile']"> ●続きを描く</a>
 					  </h5>
             <a v-if="thread['ext01'] === 1" class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']"><span class="nsfw"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></span></a>
-            <a v-else class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></a>
+            <a v-else class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']" target="_blank"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></a>
 					  <p class="comment oya" v-html="thread['com']"></p>
             <div v-if="thread['r_flag']" class="res">
               <p class="limit">
@@ -107,7 +107,7 @@
         </section>
         <hr>
 				<p>作者名/本文(ハッシュタグ)検索</p>
-				<form class="search" method="GET" action="{{$self}}">
+				<form class="search" method="GET" action="./">
 					<input type="hidden" name="mode" value="search">
 					<label><input type="radio" name="division" value="division">部分一致</label>
 					<label><input type="radio" name="division" value="kanzen">完全一致</label>
@@ -116,7 +116,7 @@
 					<input type="text" name="search" placeholder="検索" size="20">
 					<input type="submit" value=" 検索 ">
 				</form>
-				<form class="del_f" action="{{$self}}" method="post">
+				<form class="del_f" action="./" method="post">
 					<p>
 						No <input class="form" type="number" min="1" name="del_no" value="" autocomplete="off" required>
 						Pass <input class="form" type="password" name="pwd" value="" autocomplete="current-password">
