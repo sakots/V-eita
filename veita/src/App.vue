@@ -88,7 +88,7 @@
               <span v-if="threads.share_button" class="button"><a v-bind:href="'https://x.com/intent/tweet?&amp;text=%5B' + thread['tid'] + '%5D%20' + thread['sub'] + '%20by%20' + thread['a_name'] + '%20-%20' + threads.b_title + '&amp;url=' + threads.base + './?mode=res%26res=' + thread['tid']" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/twitter.svg#twitter" /></svg> tweet</a></span>
               <span v-if="threads.share_button" class="button"><a v-bind:href="'http://www.facebook.com/share.php?u=' + threads.base + './?mode=res%26res=' + thread['tid']" class="fb btn" target="_blank"><svg viewBox="0 0 512 512"><use href="./icons/facebook.svg#facebook" /></svg> share</a></span>
 
-              <span v-if="threads.elapsed_time === 0 || threads.now_time - thread['past'] < threads.elapsed_time"><span class="button"><a v-bind:href="'./?mode=res&amp;res=' + thread['tid']"><svg viewBox="0 0 512 512"><use href="./icons/rep.svg#rep" /></svg> 返信</a></span></span>
+              <span v-if="threads.elapsed_time === 0 || threads.now_time - thread['past'] < threads.elapsed_time"><span class="button"><a v-bind:href="baseUrl + './?mode=res&amp;res=' + thread['tid']"><svg viewBox="0 0 512 512"><use href="./icons/rep.svg#rep" /></svg> 返信</a></span></span>
               <span v-else>このスレは古いので返信できません…</span>
               <a href="#header">[↑]</a>
               <hr />
