@@ -41,14 +41,14 @@
               <span v-if="thread['utime'] !== null">描画時間：{{ thread['utime']}}</span>
               <span v-if="thread['ext01'] === 1">★NSFW</span>
             </h5>
-  					<h5>
+            <h5>
               <a target="_blank" v-bind:href="baseUrl + threads.path + thread['picfile']">{{ thread['picfile'] }}</a>
-						  <a v-if="thread['pchfile'] && thread['tool'] !== 'Chicken Paint'" v-bind:href="baseUrl + './?mode=anime&amp;pch=' +  thread['pchfile'] " target="_blank"> ●動画</a>
-						  <a v-if="threads.use_continue" v-bind:href="'./?mode=continue&amp;no=' + thread['picfile']"> ●続きを描く</a>
-					  </h5>
+              <a v-if="thread['pchfile'] && thread['tool'] !== 'Chicken Paint'" v-bind:href="baseUrl + './?mode=anime&amp;pch=' +  thread['pchfile'] " target="_blank"> ●動画</a>
+              <a v-if="threads.use_continue" v-bind:href="'./?mode=continue&amp;no=' + thread['picfile']"> ●続きを描く</a>
+            </h5>
             <a v-if="thread['ext01'] === 1" class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']"><span class="nsfw"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></span></a>
             <a v-else class="luminous" v-bind:href="baseUrl + threads.path + thread['picfile']" target="_blank"><img v-bind:src="baseUrl + threads.path + thread['picfile']" v-bind:alt="thread['picfile']" loading="lazy" class="image"></a>
-					  <p class="comment oya" v-html="thread['com']"></p>
+            <p class="comment oya" v-html="thread['com']"></p>
             <div v-if="thread['r_flag']" class="res">
               <p class="limit">
                 レス{{ thread['res_d_su'] }}件省略。すべて見るには
@@ -66,8 +66,8 @@
                     <h4>
                       名前：<span class="res_name">{{ re['a_name'] }}
                       <svg v-if="re['admin'] === 1" viewBox="0 0 640 512">
-										    <use href="./icons/user-check.svg#admin_badge" />
-									    </svg>
+                        <use href="./icons/user-check.svg#admin_badge" />
+                      </svg>
                       </span>
                       <span v-if="re['modified'] === re['created']">{{ re['modified'] }}</span>
                       <span v-else>{{ re['created'] }} {{threads.update_mark}} {{ re['modified'] }}</span>
@@ -77,7 +77,7 @@
                       <span class="sodane"> <a v-bind:href="'./?mode=sodane&amp;res_to=' + re['tid']">{{ re.sodane }}
                       <span v-if="re['exid'] != 0">x{{ re['exid'] }}</span>
                       <span v-else >+</span>
-						          </a></span>
+                      </a></span>
                     </h4>
                     <p class="comment" v-html="re['com']"></p>
                   </section>
