@@ -6,7 +6,10 @@
       <p v-if="threads">
         <span v-if="threads.back === 0" class="se">[START]</span>
         <span v-else class="se">&lt;&lt;<a v-bind:href="'./?page='+ threads.back">[BACK]</a></span>
-        <a v-for="(paging, index) in threads.paging" v-bind:href="'./?page=' + paging['p']" v-bind:key="index"><span v-if="paging['p'] === threads.now_page"  class="this_page">[{{ paging['p'] }}]</span><span v-else>[{{ paging['p'] }}]</span></a>
+        <span v-for="(paging, index) in threads.paging" v-bind:key="index">
+          <span v-if="paging['p'] === threads.now_page" ><em class="this_page">[{{ paging['p'] }}]</em></span>
+          <span v-else><a v-bind:href="'./?page=' + paging['p']">[{{ paging['p'] }}]</a></span>
+        </span>
         <span v-if="threads.next === threads.max_page + 1" class="se">[END]</span>
         <span v-else class="se"><a v-bind:href="'./?page=' + threads.next">[NEXT]</a>&gt;&gt;</span>
       </p>
@@ -100,7 +103,10 @@
           <p v-if="threads">
             <span v-if="threads.back === 0" class="se">[START]</span>
             <span v-else class="se">&lt;&lt;<a v-bind:href="'./?page='+ threads.back">[BACK]</a></span>
-            <a v-for="(paging, index) in threads.paging" v-bind:href="'./?page=' + paging['p']" v-bind:key="index"><span v-if="paging['p'] === threads.now_page"  class="this_page">[{{ paging['p'] }}]</span><span v-else>[{{ paging['p'] }}]</span></a>
+            <span v-for="(paging, index) in threads.paging" v-bind:key="index">
+              <span v-if="paging['p'] === threads.now_page" ><em class="this_page">[{{ paging['p'] }}]</em></span>
+              <span v-else><a v-bind:href="'./?page=' + paging['p']">[{{ paging['p'] }}]</a></span>
+            </span>
             <span v-if="threads.next === threads.max_page + 1" class="se">[END]</span>
             <span v-else class="se"><a v-bind:href="'./?page=' + threads.next">[NEXT]</a>&gt;&gt;</span>
           </p>
