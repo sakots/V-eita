@@ -51,7 +51,6 @@
         <li v-for="(index) in headers.add_info" v-bind:key="index" v-html="index"></li>
       </ul>
     </section>
-    <hr>
   </div>
 </template>
 
