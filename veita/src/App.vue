@@ -2,13 +2,13 @@
   <header id="header">
     <headerItem />
     <hr />
-    <pagingDefault v-if="threads" :threads="threads" />
+    <pagingDefault />
   </header>
   <main>
-    <viewDefault v-if="threads" :threads="threads" />
+    <viewDefault />
     <div>
       <section class="thread">
-        <pagingDefault v-if="threads" :threads="threads" />
+        <pagingDefault />
         <hr />
         <p>作者名/本文(ハッシュタグ)検索</p>
         <form class="search" method="GET" action="./">
@@ -39,23 +39,9 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { ref, onMounted } from 'vue'
 
 import headerItem from './components/headerItem.vue'
 import pagingDefault from './components/pagingDefault.vue'
 import viewDefault from './components/viewDefault.vue'
 
-const threads = ref()
-const baseUrl = import.meta.env.VITE_BASE_URL
-const getThreads = () => {
-  const param = location.search
-  axios.get(baseUrl + param).then((res) => {
-    threads.value = res.data
-  })
-}
-//DOM読み込み後に展開する
-onMounted(async () => {
-  getThreads()
-})
 </script>
