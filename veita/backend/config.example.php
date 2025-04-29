@@ -207,6 +207,9 @@ define('DEFAULT_TIMEZONE', 'Asia/Tokyo');
 //※treeのみを消して後に残ったlogは管理者のみ削除可能
 define('USER_DEL', 1);
 
+//セッションの名前
+define('SESSION_NAME', 'veita_session');
+
 /* ---------- お絵かきディレクトリ設定 ---------- */
 
 //複数のお絵描き掲示板を管理する際に便利です。
