@@ -185,7 +185,7 @@
               "
               ><span class="button"
                 ><a v-bind:href="baseUrl + './?mode=res&amp;res=' + thread['tid']"
-                  ><svg viewBox="0 0 512 512"><use href="./icons/rep.svg#rep" /></svg> 返信</a
+                  ><svg viewBox="0 0 512 512"><use href="../icons/rep.svg#rep" /></svg> 返信</a
                 ></span
               ></span
             >
