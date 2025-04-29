@@ -18,7 +18,7 @@ if (($php_ver = phpversion()) < "7.3.0") {
 	die("PHP version 7.3 or higher is required for this program to work. <br>\n(Current PHP version:{$php_ver})");
 }
 //コンフィグのバージョンが古くて互換性がない場合動かさせない
-if (CONF_VER < 250403 || !defined('CONF_VER')) {
+if (CONF_VER < 250430 || !defined('CONF_VER')) {
 	die("コンフィグファイルに互換性がないようです。再設定をお願いします。<br>\n The configuration file is incompatible. Please reconfigure it.");
 }
 
