@@ -22,11 +22,11 @@
 
 <script setup>
 
-  import headerItem from './components/headerItem.vue'
-  import pagingDefault from './components/pagingDefault.vue'
-  import viewDefault from './components/viewDefault.vue'
-  import itemSearch from './components/itemSearch.vue'
-  import deleteForm from './components/deleteForm.vue'
-  import footerItem from './components/footerItem.vue'
+import headerItem from './components/headerItem.vue'
+import pagingDefault from './components/pagingDefault.vue'
+import viewDefault from './components/viewDefault.vue'
+import itemSearch from './components/itemSearch.vue'
+import deleteForm from './components/deleteForm.vue'
+import footerItem from './components/footerItem.vue'
 
 </script>

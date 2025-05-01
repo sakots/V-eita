@@ -86,6 +86,7 @@ $dat['add_info'] = $add_info;
 $dat['dp_time'] = DSP_PAINT_TIME;
 
 $dat['share_button'] = SHARE_BUTTON;
+$dat['switch_sns'] = SWITCH_SNS;
 
 $dat['use_hashtag'] = USE_HASHTAG;
 
@@ -243,6 +244,12 @@ if (filter_input(INPUT_GET, 'mode') === "search") {
 if (filter_input(INPUT_GET, 'mode') === "get_header") {
 	$mode = "get_header";
 }
+if (filter_input(INPUT_GET, 'mode') === "set_share_server") {
+	$mode = "set_share_server";
+}
+if (filter_input(INPUT_GET, 'mode') === "post_share_server") {
+	$mode = "post_share_server";
+}
 
 switch ($mode) {
 	case 'resist':
@@ -293,6 +300,10 @@ switch ($mode) {
 		return admin();
 	case 'get_header':
 		return get_header();
+	case 'set_share_server':
+		return set_share_server();
+	case 'post_share_server':
+		return post_share_server();
 	default:
 		return def();
 }
@@ -2466,7 +2477,7 @@ function redirect($url): void {
 
 //シェアするserverの選択画面
 function set_share_server(): void {
-	global $servers,$blade,$dat;
+	global $servers,$dat;
 
 	//ShareするServerの一覧
 	//｢"ラジオボタンに表示するServer名","snsのserverのurl"｣
@@ -2494,7 +2505,8 @@ function set_share_server(): void {
 
 	$dat['admin_pass'] = null;
 	//HTML出力
-	echo $blade->run(SET_SHARE_SERVER, $dat);
+	header('Access-Control-Allow-Origin: http://localhost:5173');
+	echo json_encode($dat, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 }
 
 //SNSへ共有リンクを送信

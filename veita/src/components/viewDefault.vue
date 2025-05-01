@@ -133,8 +133,7 @@
                         >{{ re.sodane }}
                         <span v-if="re['exid'] != 0">x{{ re['exid'] }}</span>
                         <span v-else>+</span>
-                      </a></span
-                    >
+                      </a></span>
                   </h4>
                   <p class="comment" v-html="re['com']"></p>
                 </section>
@@ -142,7 +141,13 @@
             </div>
           </div>
           <div class="th_foot">
-            <span v-if="threads.share_button" class="button"
+            <span v-if="threads.share_button">
+              <span v-if="threads.switch_sns" class="button"><a href="?mode=set_share_server&amp;encoded_t={{ thread['encoded_t'] }}&amp;encoded_u={{ thread['encoded_u'] }}" @click="open_sns_server_window(event,600,600)">
+              <svg viewBox="0 0 512 512">
+                <use href="../icons/share.svg#share" />
+              </svg> SNSで共有する</a>
+            </span>
+            <span v-else class="button"
               ><a
                 v-bind:href="
                   'https://x.com/intent/tweet?&amp;text=%5B' +
@@ -159,25 +164,10 @@
                   thread['tid']
                 "
                 target="_blank"
-                ><svg viewBox="0 0 512 512"><use href="./icons/twitter.svg#twitter" /></svg>
+                ><svg viewBox="0 0 512 512"><use href="../icons/twitter.svg#twitter" /></svg>
                 tweet</a
-              ></span
-            >
-            <span v-if="threads.share_button" class="button"
-              ><a
-                v-bind:href="
-                  'http://www.facebook.com/share.php?u=' +
-                  threads.base +
-                  './?mode=res%26res=' +
-                  thread['tid']
-                "
-                class="fb btn"
-                target="_blank"
-                ><svg viewBox="0 0 512 512"><use href="./icons/facebook.svg#facebook" /></svg>
-                share</a
-              ></span
-            >
-
+              ></span>
+            </span>
             <span
               v-if="
                 threads.elapsed_time === 0 ||
@@ -215,4 +205,35 @@ const getThreads = () => {
 onMounted(async () => {
   getThreads()
 })
+
+
+
+//shareするSNSのserver一覧を開く
+let snsWindow = null; // グローバル変数としてウィンドウオブジェクトを保存する
+
+const open_sns_server_window = (event, width = 600, height = 600) => {
+  event.preventDefault(); // デフォルトのリンクの挙動を中断
+
+  // 幅と高さが数値であることを確認
+  // 幅と高さが正の値であることを確認
+  if (isNaN(width) || width <= 350 || isNaN(height) || height <= 400) {
+    width = 350; // デフォルト値
+    height = 400; // デフォルト値
+  }
+  let url = event.currentTarget.href;
+  let windowFeatures = "width=" + width + ",height=" + height; // ウィンドウのサイズを指定
+
+  if (snsWindow && !snsWindow.closed) {
+    snsWindow.focus(); // 既に開かれているウィンドウがあればフォーカスする
+  } else {
+    snsWindow = window.open(url, "_blank", windowFeatures); // 新しいウィンドウを開く
+  }
+  // ウィンドウがフォーカスを失った時の処理
+  snsWindow.addEventListener("blur", function () {
+    if (snsWindow.location.href === url) {
+      snsWindow.close(); // URLが変更されていない場合はウィンドウを閉じる
+    }
+  });
+}
+
 </script>
