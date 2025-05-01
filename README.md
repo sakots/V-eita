@@ -1,7 +1,5 @@
 # V-eita
 
-This template should help get you started developing with Vue 3 in Vite.
-
 ## Vue.jsのお絵かき掲示板
 
 やっぱりなんかVueでお絵かき掲示板作れる気がするぞ、っておもってまたはじめました。
